@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "[![Actions Status](https://github.com/supernukuomu/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/supernukuomu/frontend-project-46/actions)",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
