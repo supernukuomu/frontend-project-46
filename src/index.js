@@ -17,7 +17,7 @@ const getDifference = (obj1, obj2) => {
       }
       return `- ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`;
     })
-    .join(`\n  `);
+    .join('\n  ');
 
   return `{\n  ${sortedKeys}\n}`;
 };
