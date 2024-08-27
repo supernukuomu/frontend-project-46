@@ -15,7 +15,6 @@
   "dependencies": {
     "@eslint/migrate-config": "^1.2.0",
     "commander": "^12.1.0",
-    "jest": "^29.7.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
@@ -28,6 +27,7 @@
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "globals": "^15.9.0"
+    "globals": "^15.9.0",
+    "jest": "^29.7.0"
   }
 }
