@@ -1,7 +1,10 @@
-import getDifference from '../src/index.js';
+/* eslint implicit-arrow-linebreak: 0 */
+/* eslint comma-dangle: 0 */
+
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
+import getDifference from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

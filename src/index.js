@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import getParsed from './parser.js';
 import path from 'path';
 import { readFileSync } from 'node:fs';
+import getParsed from './parser.js';
 
 const getDifference = (filepath1, filepath2) => {
   const fullPath1 = path.resolve(process.cwd(), filepath1);
