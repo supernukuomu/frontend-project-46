@@ -8,8 +8,8 @@ const getDifference = (filepath1, filepath2) => {
   const fullPath2 = path.resolve(process.cwd(), filepath2);
   const fileContents1 = readFileSync(fullPath1, 'utf-8');
   const fileContents2 = readFileSync(fullPath2, 'utf-8');
-  const parsedFile1 = getParsed(fileContents1);
-  const parsedFile2 = getParsed(fileContents2);
+  const parsedFile1 = getParsed(fileContents1, filepath1);
+  const parsedFile2 = getParsed(fileContents2, filepath2);
   const allKeys = Object.keys({ ...parsedFile1, ...parsedFile2 });
   const sortedKeys = _.sortBy(allKeys)
     .map((key) => {

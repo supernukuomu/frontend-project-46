@@ -4,8 +4,11 @@ install:
 gendiff:
 	node bin/gendiff.js
 
-gendiff-start:
+gendiff-start-json:
 	node bin/gendiff.js __fixtures__/file1.json __fixtures__/file2.json
+
+gendiff-start-yml:
+	node bin/gendiff.js __fixtures__/file1.yml __fixtures__/file2.yml
 
 test:
 	NODE_OPTIONS=--experimental-vm-modules npx jest
