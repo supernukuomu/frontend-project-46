@@ -5,7 +5,7 @@ gendiff:
 	node bin/gendiff.js
 
 gendiff-start-json:
-	node bin/gendiff.js __fixtures__/file1.json __fixtures__/file2.json
+	node bin/gendiff.js __fixtures__/file3.json __fixtures__/file4.json
 
 gendiff-start-yml:
 	node bin/gendiff.js __fixtures__/file1.yml __fixtures__/file2.yml
