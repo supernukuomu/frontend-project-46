@@ -10,25 +10,26 @@ const getFileContent = (filePath) => {
 
 const getFileExtension = (fileName) => path.extname(fileName);
 
-const getDifference = (filepath1, filepath2, format = 'stylish') => {
-  const fileContents1 = getFileContent(filepath1);
-  const fileContents2 = getFileContent(filepath2);
-  const fileExtension1 = getFileExtension(filepath1);
-  const fileExtension2 = getFileExtension(filepath2);
-  const parsedFile1 = getParsed(fileContents1, fileExtension1);
-  const parsedFile2 = getParsed(fileContents2, fileExtension2);
-  const allKeys = Object.keys({ ...parsedFile1, ...parsedFile2 });
+const getObjFromFilepath = (filepath) => {
+  const fileContents = getFileContent(filepath);
+  const fileExtension = getFileExtension(filepath);
+  const parsedFile = getParsed(fileContents, fileExtension);
+  return parsedFile;
+};
+
+const getDifference = (obj1, obj2) => {
+  const allKeys = Object.keys({ ...obj1, ...obj2 });
   const sortedKeys = _.sortBy(allKeys).map((key) => {
-    const oldValue = parsedFile1[key];
-    const newValue = parsedFile2[key];
-    if (!Object.hasOwn(parsedFile2, key)) {
+    const oldValue = obj1[key];
+    const newValue = obj2[key];
+    if (!Object.hasOwn(obj2, key)) {
       return { type: 'deleted', key, oldValue };
-      // return `- ${key}: ${parsedFile1[key]}`;
+      // return `- ${key}: ${obj1[key]}`;
     }
 
-    if (!Object.hasOwn(parsedFile1, key)) {
+    if (!Object.hasOwn(obj1, key)) {
       return { type: 'added', key, newValue };
-      // return `+ ${key}: ${parsedFile2[key]}`;
+      // return `+ ${key}: ${obj2[key]}`;
     }
 
     if (_.isObject(oldValue) && _.isObject(newValue)) {
@@ -41,13 +42,25 @@ const getDifference = (filepath1, filepath2, format = 'stylish') => {
 
     if (oldValue === newValue) {
       return { type: 'unchanged', key, oldValue };
-      // return `  ${key}: ${parsedFile1[key]}`;
+      // return `  ${key}: ${obj1[key]}`;
     }
-    return { type: 'changed', key, oldValue, newValue };
-    // return `- ${key}: ${parsedFile1[key]}\n  + ${key}: ${parsedFile2[key]}`;
+
+    return {
+      type: 'changed',
+      key,
+      oldValue,
+      newValue,
+    };
+    // return `- ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`;
   });
 
   return sortedKeys;
 };
 
-export default getDifference;
+const genDiff = (filepath1, filepath2, format = 'stylish') => {
+  const obj1 = getObjFromFilepath(filepath1);
+  const obj2 = getObjFromFilepath(filepath2);
+  return getDifference(obj1, obj2);
+};
+
+export default genDiff;
