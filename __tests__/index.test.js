@@ -13,17 +13,17 @@ const getFixturePath = (filename) =>
 const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
 test('getDifference json', () => {
-  const filepath1 = getFixturePath('file1.json');
-  const filepath2 = getFixturePath('file2.json');
+  const filepath1 = getFixturePath('file3.json');
+  const filepath2 = getFixturePath('file4.json');
   expect(getDifference(filepath1, filepath2)).toEqual(
-    readFile('expectedDiff.txt')
+    readFile('expectedDiffStylish.txt')
   );
 });
 
 test('getDifference yml', () => {
-  const filepath1 = getFixturePath('file1.yml');
-  const filepath2 = getFixturePath('file2.yml');
+  const filepath1 = getFixturePath('file3.yml');
+  const filepath2 = getFixturePath('file4.yml');
   expect(getDifference(filepath1, filepath2)).toEqual(
-    readFile('expectedDiff.txt')
+    readFile('expectedDiffStylish.txt')
   );
 });
