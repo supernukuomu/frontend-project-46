@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
-const getIndentation = (depth, symbol) =>
-  symbol ? `${'    '.repeat(depth)}  ${symbol}` : '    '.repeat(depth);
+const getIndentation = (depth, symbol) => (
+  symbol ? `${'    '.repeat(depth)}  ${symbol}` : '    '.repeat(depth)
+);
 
 const makeString = (value, level) => {
   const iter = (currentValue, depth) => {
@@ -9,8 +10,7 @@ const makeString = (value, level) => {
       return `${currentValue}`;
     }
     const result = Object.entries(currentValue).map(
-      ([key, val]) =>
-        `${getIndentation(depth + 1, '  ')}${key}: ${iter(val, depth + 1)}`
+      ([key, val]) => `${getIndentation(depth + 1, '  ')}${key}: ${iter(val, depth + 1)}`,
     );
     return ['{', ...result, `${getIndentation(depth + 1)}}`].join('\n');
   };
@@ -23,36 +23,36 @@ const getStylish = (diff) => {
       if (key.type === 'deleted') {
         return `${getIndentation(depth, '- ')}${key.key}: ${makeString(
           key.oldValue,
-          depth
+          depth,
         )}`;
       }
       if (key.type === 'added') {
         return `${getIndentation(depth, '+ ')}${key.key}: ${makeString(
           key.newValue,
-          depth
+          depth,
         )}`;
       }
       if (key.type === 'nested') {
         return `${getIndentation(depth, '  ')}${key.key}: ${iter(
           key.children,
-          depth + 1
+          depth + 1,
         )}`;
       }
       if (key.type === 'changed') {
         return [
           `${getIndentation(depth, '- ')}${key.key}: ${makeString(
             key.oldValue,
-            depth
+            depth,
           )}\n${getIndentation(depth, '+ ')}${key.key}: ${makeString(
             key.newValue,
-            depth
+            depth,
           )}`,
         ];
       }
 
       return `${getIndentation(depth, '  ')}${key.key}: ${makeString(
         key.oldValue,
-        depth
+        depth,
       )}`;
     });
 
