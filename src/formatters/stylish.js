@@ -31,8 +31,9 @@ const getStylish = (diff) => {
       }
       if (key.type === 'changed') {
         return [`${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth)}\n${getIndentation(depth, '+ ')}${key.key}: ${makeString(key.newValue, depth)}`,];
-      }
-      return `${getIndentation(depth, '  ')}${key.key}: ${makeString(key.oldValue, depth)}`;
+      } else {
+        return `${getIndentation(depth, '  ')}${key.key}: ${makeString(key.oldValue, depth)}`;
+        }
     });
     return ['{', ...result, `${getIndentation(depth)}}`].join('\n');
   };
