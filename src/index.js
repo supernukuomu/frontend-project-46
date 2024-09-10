@@ -41,14 +41,9 @@ const getDifference = (obj1, obj2) => {
 
     if (oldValue === newValue) {
       return { type: 'unchanged', key, oldValue };
+    } else {
+      return { type: 'changed', key, oldValue, newValue };
     }
-
-    return {
-      type: 'changed',
-      key,
-      oldValue,
-      newValue,
-    };
   });
 
   return sortedKeys;
