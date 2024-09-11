@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-vesrion: '16.x'
-          TEST_COVERAGE: ${{ secrets.TEST_COVERAGE }}
+          TEST_COVERAGE: ${{ secrets.CC_TEST_COVERAGE_ID }}
       
       - run: make install
       
