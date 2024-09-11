@@ -12,18 +12,19 @@ const getFixturePath = (filename) =>
   resolve(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
-test('getDifference json', () => {
-  const filepath1 = getFixturePath('file3.json');
-  const filepath2 = getFixturePath('file4.json');
-  expect(getDifference(filepath1, filepath2)).toEqual(
-    readFile('expectedDiffStylish.txt')
-  );
-});
-
-test('getDifference yml', () => {
-  const filepath1 = getFixturePath('file3.yml');
-  const filepath2 = getFixturePath('file4.yml');
-  expect(getDifference(filepath1, filepath2)).toEqual(
-    readFile('expectedDiffStylish.txt')
-  );
+test.each([
+  ['json', 'stylish', readFile('expectedDiffStylish.txt')],
+  ['yml', 'stylish', readFile('expectedDiffStylish.txt')],
+  ['json', 'plain', readFile('expectedDiffPlain.txt')],
+  ['yml', 'plain', readFile('expectedDiffPlain.txt')],
+  ['json', 'json', readFile('expectedDiffJson.txt')],
+  ['yml', 'json', readFile('expectedDiffJson.txt')],
+])('all test gendiff', (extension, format, expected) => {
+  expect(
+    getDifference(
+      getFixturePath(`file3.${extension}`),
+      getFixturePath(`file4.${extension}`),
+      format
+    )
+  ).toEqual(expected);
 });
