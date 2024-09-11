@@ -6,14 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - uses: actions/setup-node@v2
-        with:
-          node-vesrion: '16.x'
-          TEST_COVERAGE: ${{ secrets.CC_TEST_COVERAGE_ID }}
-      
       - run: make install
-      
       - run: make lint
-
-      - run: make test
+      - run: npm run test
+      - run: npm test -- --coverage --coverageProvider=v8
+      - name: Test & publish code coverage
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+        uses: paambaati/codeclimate-action@v4.0.0
+        # Add Code Climate secret key
+        env:
+          CC_TEST_COVERAGE: ${{ secrets.CC_TEST_COVERAGE_ID }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
