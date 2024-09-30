@@ -20,20 +20,19 @@ const makeString = (value, level) => {
 const getStylish = (diff) => {
   const iter = (obj, depth) => {
     const result = obj.map((key) => {
-      if (key.type === 'deleted') {
-        return `${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth)}`;
+      switch (key.type) {
+        case 'deleted':
+          return `${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth)}`;
+        case 'added':
+          return `${getIndentation(depth, '+ ')}${key.key}: ${makeString(key.newValue, depth)}`;
+        case 'nested':
+          return `${getIndentation(depth, '  ')}${key.key}: ${iter(key.children, depth + 1)}`;
+        case 'changed':
+          return [`${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth
+            )}\n${getIndentation(depth, '+ ')}${key.key}: ${makeString(key.newValue, depth)}`,];
+        default:
+          return `${getIndentation(depth, '  ')}${key.key}: ${makeString(key.oldValue, depth)}`;
       }
-      if (key.type === 'added') {
-        return `${getIndentation(depth, '+ ')}${key.key}: ${makeString(key.newValue, depth)}`;
-      }
-      if (key.type === 'nested') {
-        return `${getIndentation(depth, '  ')}${key.key}: ${iter(key.children, depth + 1)}`;
-      }
-      if (key.type === 'changed') {
-        return [`${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth)}\n${getIndentation(depth, '+ ')}${key.key}: ${makeString(key.newValue, depth)}`,];
-      } else {
-        return `${getIndentation(depth, '  ')}${key.key}: ${makeString(key.oldValue, depth)}`;
-        }
     });
     return ['{', ...result, `${getIndentation(depth)}}`].join('\n');
   };
