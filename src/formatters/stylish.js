@@ -27,7 +27,7 @@ const getStylish = (diff) => {
           return [
             `${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth)}\n${getIndentation(depth, '+ ')}${key.key}: ${makeString(
               key.newValue,
-              depth
+              depth,
             )}`,
           ];
         default:
