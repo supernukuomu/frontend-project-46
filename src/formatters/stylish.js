@@ -22,16 +22,35 @@ const getStylish = (diff) => {
     const result = obj.map((key) => {
       switch (key.type) {
         case 'deleted':
-          return `${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth)}`;
+          return `${getIndentation(depth, '- ')}${key.key}: ${makeString(
+            key.oldValue,
+            depth
+          )}`;
         case 'added':
-          return `${getIndentation(depth, '+ ')}${key.key}: ${makeString(key.newValue, depth)}`;
+          return `${getIndentation(depth, '+ ')}${key.key}: ${makeString(
+            key.newValue,
+            depth
+          )}`;
         case 'nested':
-          return `${getIndentation(depth, '  ')}${key.key}: ${iter(key.children, depth + 1)}`;
+          return `${getIndentation(depth, '  ')}${key.key}: ${iter(
+            key.children,
+            depth + 1
+          )}`;
         case 'changed':
-          return [`${getIndentation(depth, '- ')}${key.key}: ${makeString(key.oldValue, depth
-            )}\n${getIndentation(depth, '+ ')}${key.key}: ${makeString(key.newValue, depth)}`,];
+          return [
+            `${getIndentation(depth, '- ')}${key.key}: ${makeString(
+              key.oldValue,
+              depth
+            )}\n${getIndentation(depth, '+ ')}${key.key}: ${makeString(
+              key.newValue,
+              depth
+            )}`,
+          ];
         default:
-          return `${getIndentation(depth, '  ')}${key.key}: ${makeString(key.oldValue, depth)}`;
+          return `${getIndentation(depth, '  ')}${key.key}: ${makeString(
+            key.oldValue,
+            depth
+          )}`;
       }
     });
     return ['{', ...result, `${getIndentation(depth)}}`].join('\n');

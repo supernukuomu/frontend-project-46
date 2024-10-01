@@ -28,8 +28,8 @@ const getDifference = (obj1, obj2) => {
         ? _.isObject(oldValue) && _.isObject(newValue)
           ? { type: 'nested', key, children: getDifference(oldValue, newValue) }
           : oldValue === newValue
-            ? { type: 'unchanged', key, oldValue }
-            : { type: 'changed', key, oldValue, newValue }
+          ? { type: 'unchanged', key, oldValue }
+          : { type: 'changed', key, oldValue, newValue }
         : { type: 'added', key, newValue }
       : { type: 'deleted', key, oldValue };
   });
