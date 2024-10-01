@@ -19,14 +19,10 @@ const getPlain = (diff) => {
           return `Property '${completedKey}' ${'was removed'}`;
         }
         if (key.type === 'added') {
-          return `Property '${completedKey}' ${'was added with value:'} ${makeString(
-            key.newValue,
-          )}`;
+          return `Property '${completedKey}' ${'was added with value:'} ${makeString(key.newValue)}`;
         }
         if (key.type === 'changed') {
-          return `Property '${completedKey}' ${'was updated. From'} ${makeString(
-            key.oldValue,
-          )} to ${makeString(key.newValue)}`;
+          return `Property '${completedKey}' ${'was updated. From'} ${makeString(key.oldValue)} to ${makeString(key.newValue)}`;
         }
         if (key.type === 'nested') {
           return iter(key.children, `${completedKey}.`);
