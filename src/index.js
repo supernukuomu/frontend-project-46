@@ -23,13 +23,20 @@ const getDifference = (obj1, obj2) => {
   return _.sortBy(allKeys).map((key) => {
     const oldValue = obj1[key];
     const newValue = obj2[key];
+    /* eslint no-nested-ternary: 0 */
+
     return Object.hasOwn(obj2, key)
       ? Object.hasOwn(obj1, key)
         ? _.isObject(oldValue) && _.isObject(newValue)
           ? { type: 'nested', key, children: getDifference(oldValue, newValue) }
           : oldValue === newValue
-          ? { type: 'unchanged', key, oldValue }
-          : { type: 'changed', key, oldValue, newValue }
+            ? { type: 'unchanged', key, oldValue }
+            : {
+              type: 'changed',
+              key,
+              oldValue,
+              newValue,
+            }
         : { type: 'added', key, newValue }
       : { type: 'deleted', key, oldValue };
   });
